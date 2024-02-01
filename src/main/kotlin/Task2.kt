@@ -1,18 +1,18 @@
 import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
-    val arr = listOf(1, 5, 3, 5, 0, 3, 6, 8,1, 13, 5, 2)
-    val n = 3
-    println(findPair(arr, n))
+    val arr = listOf(1, 5, 3, 5, 0, 3, 6, 8, 1, 13, 5, 2)
+    val n = 6
+    findPair(arr, n)
 }
-fun findPair(arr: List<Int>, n: Int): Pair<Int, Int> {
-    val map = hashMapOf<Int, Int>()
-    for (number in arr) {
-        val difference = n - number
-        if (containsNumber(map, difference)) return Pair(number, map[difference]!!)
-        map[number] = number
-    }
-    return Pair(-1, -1)
-}
-private fun containsNumber(map: HashMap<Int, Int>, difference: Int) = map.containsKey(difference)
 
+fun findPair(arr: List<Int>, n: Int) {
+    val map = mutableMapOf<Int, Int>()
+    arr.forEach { number ->
+        val difference = n - number
+        when (map[difference]) {
+            null -> map[number] = number
+            else -> println(Pair(number, map.remove(difference)))
+        }
+    }
+}
